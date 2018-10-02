@@ -1,4 +1,5 @@
 #include "include/raylib.h"
+#include "Juego.h"
 
 #include <cmath>
 
@@ -57,7 +58,7 @@ static int midMeteorsCount;
 static int smallMeteorsCount;
 static int destroyedMeteorsCount;
 
-int main(void)
+int core()
 {
 	
 	InitWindow(screenWidth, screenHeight, "sample game: asteroids");
@@ -77,7 +78,7 @@ int main(void)
 	return 0;
 }
 
-void InitGame(void)
+void InitGame()
 {
 	int posx, posy;
 	int velx, vely;
@@ -88,7 +89,7 @@ void InitGame(void)
 	shipHeight = (PLAYER_BASE_SIZE / 2) / tanf(20 * DEG2RAD);
 
 	// Initialization player
-	player.position =  { screenWidth / 2, screenHeight / 2 - shipHeight / 2 };
+	player.position =  { (float)screenWidth / 2, (float)screenHeight / 2 - (float)shipHeight / 2 };
 	player.speed =  { 0, 0 };
 	player.acceleration = 0;
 	player.rotation = 0;
@@ -128,12 +129,12 @@ void InitGame(void)
 			else correctRange = true;
 		}
 
-		bigMeteor[i].position =  { posx, posy };
+		bigMeteor[i].position =  { (float)posx, (float)posy };
 
 		correctRange = false;
 		velx = GetRandomValue(-METEORS_SPEED, METEORS_SPEED);
 		vely = GetRandomValue(-METEORS_SPEED, METEORS_SPEED);
-
+		   
 		while (!correctRange)
 		{
 			if (velx == 0 && vely == 0)
@@ -144,7 +145,7 @@ void InitGame(void)
 			else correctRange = true;
 		}
 
-		bigMeteor[i].speed =  { velx, vely };
+		bigMeteor[i].speed =  { (float)velx, (float)vely };
 		bigMeteor[i].radius = 40;
 		bigMeteor[i].active = true;
 		bigMeteor[i].color = BLUE;
@@ -172,7 +173,7 @@ void InitGame(void)
 	smallMeteorsCount = 0;
 }
 
-void UpdateGame(void)
+void UpdateGame()
 {
 	if (!gameOver)
 	{
@@ -444,7 +445,7 @@ void UpdateGame(void)
 	}
 }
 
-void DrawGame(void)
+void DrawGame()
 {
 	BeginDrawing();
 
@@ -492,12 +493,12 @@ void DrawGame(void)
 	EndDrawing();
 }
 
-void UnloadGame(void)
+void UnloadGame()
 {
 	// TODO: Unload all dynamic loaded data (textures, sounds, models...)
 }
 
-void UpdateDrawFrame(void)
+void UpdateDrawFrame()
 {
 	UpdateGame();
 	DrawGame();

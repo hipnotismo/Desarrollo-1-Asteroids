@@ -1,10 +1,11 @@
 #ifndef Juego_H
 #define Juego_H
 
- void InitGame(void);         
- void UpdateGame(void);       
- void DrawGame(void);         
- void UnloadGame(void);      
- void UpdateDrawFrame(void);
+int core();
+ void InitGame();         
+ void UpdateGame();       
+ void DrawGame();         
+ void UnloadGame();      
+ void UpdateDrawFrame();
 
 #endif // !Juego_H
