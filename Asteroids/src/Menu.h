@@ -5,6 +5,6 @@
 extern int screenHeight;
 extern int screenWidth;
 
-void  MenuDraw();
 void MenuUpdate();
+void  MenuDraw();
 #endif // !Menu_H
