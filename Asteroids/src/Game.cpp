@@ -1,5 +1,6 @@
 #include "include/raylib.h"
-#include "Juego.h"
+#include "Game.h"
+#include "Menu.h"
 
 #include <cmath>
 
@@ -39,8 +40,8 @@
 	Color color;
 } ;
 
-static int screenWidth = 800;
-static int screenHeight = 450;
+int screenWidth = 800;
+int screenHeight = 450;
 
 static bool gameOver;
 static bool pause;
@@ -61,15 +62,15 @@ static int destroyedMeteorsCount;
 int core()
 {
 	
-	InitWindow(screenWidth, screenHeight, "sample game: asteroids");
+	InitWindow(screenWidth, screenHeight, "Asteroids");
 
 	InitGame();
 
 
 	while (!WindowShouldClose())    
 	{
+		MenuUpdate();
 		
-		UpdateDrawFrame();
 	}
 	UnloadGame();         
 
@@ -182,12 +183,12 @@ void UpdateGame()
 		if (!pause)
 		{
 			// Player logic: rotation
-			if (IsKeyDown(KEY_LEFT)) player.rotation -= 5;
-			if (IsKeyDown(KEY_RIGHT)) player.rotation += 5;
+			if (IsKeyDown(KEY_LEFT)) player.rotation -= 5 * GetFrameTime();
+			if (IsKeyDown(KEY_RIGHT)) player.rotation += 5 * GetFrameTime();
 
 			// Player logic: speed
-			player.speed.x = sin(player.rotation*DEG2RAD)*PLAYER_SPEED;
-			player.speed.y = cos(player.rotation*DEG2RAD)*PLAYER_SPEED;
+			player.speed.x = sin(player.rotation*DEG2RAD)*PLAYER_SPEED * GetFrameTime();
+			player.speed.y = cos(player.rotation*DEG2RAD)*PLAYER_SPEED * GetFrameTime();
 
 			// Player logic: acceleration
 			if (IsKeyDown(KEY_UP))
@@ -244,8 +245,8 @@ void UpdateGame()
 				if (shoot[i].active)
 				{
 					// Movement
-					shoot[i].position.x += shoot[i].speed.x;
-					shoot[i].position.y -= shoot[i].speed.y;
+					shoot[i].position.x += shoot[i].speed.x * GetFrameTime();
+					shoot[i].position.y -= shoot[i].speed.y * GetFrameTime();
 
 					// Collision logic: shoot vs walls
 					if (shoot[i].position.x > screenWidth + shoot[i].radius)
@@ -304,8 +305,8 @@ void UpdateGame()
 				if (bigMeteor[i].active)
 				{
 					// Movement
-					bigMeteor[i].position.x += bigMeteor[i].speed.x;
-					bigMeteor[i].position.y += bigMeteor[i].speed.y;
+					bigMeteor[i].position.x += bigMeteor[i].speed.x * GetFrameTime();
+					bigMeteor[i].position.y += bigMeteor[i].speed.y * GetFrameTime();
 
 					// Collision logic: meteor vs wall
 					if (bigMeteor[i].position.x > screenWidth + bigMeteor[i].radius) bigMeteor[i].position.x = -(bigMeteor[i].radius);
@@ -321,8 +322,8 @@ void UpdateGame()
 				if (mediumMeteor[i].active)
 				{
 					// Movement
-					mediumMeteor[i].position.x += mediumMeteor[i].speed.x;
-					mediumMeteor[i].position.y += mediumMeteor[i].speed.y;
+					mediumMeteor[i].position.x += mediumMeteor[i].speed.x * GetFrameTime();
+					mediumMeteor[i].position.y += mediumMeteor[i].speed.y * GetFrameTime();
 
 					// Collision logic: meteor vs wall
 					if (mediumMeteor[i].position.x > screenWidth + mediumMeteor[i].radius) mediumMeteor[i].position.x = -(mediumMeteor[i].radius);
@@ -338,8 +339,8 @@ void UpdateGame()
 				if (smallMeteor[i].active)
 				{
 					// Movement
-					smallMeteor[i].position.x += smallMeteor[i].speed.x;
-					smallMeteor[i].position.y += smallMeteor[i].speed.y;
+					smallMeteor[i].position.x += smallMeteor[i].speed.x * GetFrameTime();
+					smallMeteor[i].position.y += smallMeteor[i].speed.y * GetFrameTime();
 
 					// Collision logic: meteor vs wall
 					if (smallMeteor[i].position.x > screenWidth + smallMeteor[i].radius) smallMeteor[i].position.x = -(smallMeteor[i].radius);
@@ -437,6 +438,7 @@ void UpdateGame()
 	}
 	else
 	{
+		//Cambiar para que valla a una pantalla de game over
 		if (IsKeyPressed(KEY_ENTER))
 		{
 			InitGame();

@@ -1,5 +1,5 @@
-#ifndef Juego_H
-#define Juego_H
+#ifndef Game_H
+#define Game_H
 
 int core();
  void InitGame();         
@@ -8,4 +8,4 @@ int core();
  void UnloadGame();      
  void UpdateDrawFrame();
 
-#endif // !Juego_H
+#endif // !Game_H

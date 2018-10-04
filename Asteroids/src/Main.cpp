@@ -1,5 +1,5 @@
 #include "include\raylib.h"
-#include "Juego.h"
+#include "Game.h"
 
 int main() {
 	core();
