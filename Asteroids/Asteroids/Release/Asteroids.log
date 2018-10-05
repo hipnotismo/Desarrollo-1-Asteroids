@@ -1,6 +1,9 @@
-﻿LINK : warning LNK4098: la biblioteca predeterminada'MSVCRTD' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
+﻿  Main.cpp
+LINK : warning LNK4098: la biblioteca predeterminada'MSVCRTD' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
   Generando código
-  All 17 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  12 of 17 functions (70.6%) were compiled, the rest were copied from previous compilation.
+    11 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
 raylib.lib(core.obj) : warning LNK4099: no se encontró PDB 'raylib.pdb' con 'raylib.lib(core.obj)' o en 'C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\Release\raylib.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 raylib.lib(shapes.obj) : warning LNK4099: no se encontró PDB 'raylib.pdb' con 'raylib.lib(shapes.obj)' o en 'C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\Release\raylib.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
@@ -24,5 +27,6 @@ raylib.lib(egl_context.obj) : warning LNK4099: no se encontró PDB 'glfw_objlib.
 raylib.lib(osmesa_context.obj) : warning LNK4099: no se encontró PDB 'glfw_objlib.pdb' con 'raylib.lib(osmesa_context.obj)' o en 'C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\Release\glfw_objlib.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
   Asteroids.vcxproj -> C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\Release\Asteroids.exe
   Asteroids.vcxproj -> C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\Release\Asteroids.pdb (Full PDB)
+  Ya existe el subdirectorio o el archivo C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\Release\res.
   C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\res\Ship.jpg
   1 archivo(s) copiado(s)

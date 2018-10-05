@@ -1,41 +1,48 @@
-#include "include/raylib.h"
 #include "Menu.h"
+
+#include "include/raylib.h"
+
 #include "Game.h"
 
-Vector2 mousePoint;
-Rectangle rec1;
-void MenuUpdate() 
+namespace Juego 
 {
-	MenuDraw();
-	mousePoint = GetMousePosition();
-	rec1.x = screenWidth / 2 - 40;
-	rec1.y = screenHeight / 2 - 40;
-	rec1.height = 40;
-	rec1.width = 80;
 
-	if (CheckCollisionPointRec(mousePoint, rec1))
+	Vector2 mousePoint;
+	Rectangle rec1;
+	void MenuUpdate()
 	{
-		
-		if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) 
+		MenuDraw();
+		mousePoint = GetMousePosition();
+		rec1.x = screenWidth / 2 - 40;
+		rec1.y = screenHeight / 2 - 40;
+		rec1.height = 40;
+		rec1.width = 80;
+
+		if (CheckCollisionPointRec(mousePoint, rec1))
 		{
-			Screens = Game;
+
+			if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON))
+			{
+				Screens = Game;
+			}
 		}
+
+
+
 	}
-	
 
-	
-}
+	void MenuDraw()
+	{
+		BeginDrawing();
 
-void MenuDraw() 
-{
-	BeginDrawing();
-
-	ClearBackground(RAYWHITE);
+		ClearBackground(RAYWHITE);
 
 
-	DrawRectangle(screenWidth / 2 - 40, screenHeight / 2 - 40, 80, 80, MAROON);
-	//DrawText("Presione \"Escape\" para salir", 130, 300, 20, MAROON);
-	//DrawText("r", 130, 300, 20, MAROON);
+		DrawRectangle(screenWidth / 2 - 40, screenHeight / 2 - 40, 80, 80, MAROON);
+		//DrawText("Presione \"Escape\" para salir", 130, 300, 20, MAROON);
+		//DrawText("r", 130, 300, 20, MAROON);
 
-	EndDrawing();
+		EndDrawing();
+	}
+
 }
