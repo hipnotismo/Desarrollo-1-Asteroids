@@ -3,16 +3,23 @@
 #include "Game.h"
 
 Vector2 mousePoint;
+Rectangle rec1;
 
 void MenuUpdate() 
 {
 	MenuDraw();
 	mousePoint = GetMousePosition();
-	if (CheckCollisionPointRec(mousePoint, { screenWidth / 2 - 40, screenHeight / 2 - 40, 80, 80 }))
+	rec1.x = screenWidth / 2 - 40;
+	rec1.y = screenHeight / 2 - 40;
+	rec1.height = 40;
+	rec1.width = 80;
+
+	if (CheckCollisionPointRec(mousePoint, rec1))
 	{
+
 		if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) 
 		{
-
+			Screens = Credits;
 		}
 	}
 	

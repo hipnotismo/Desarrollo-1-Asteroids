@@ -1,8 +1,10 @@
 #include "include/raylib.h"
 #include "Game.h"
 #include "Menu.h"
-
+#include "Credits.h"
 #include <cmath>
+
+GameScreen Screens;
 
 #define PLAYER_BASE_SIZE    20.0f
 #define PLAYER_SPEED        6.0f
@@ -498,6 +500,33 @@ void DrawGame()
 void UnloadGame()
 {
 	// TODO: Unload all dynamic loaded data (textures, sounds, models...)
+}
+
+void Change() 
+{
+	switch (Screens)
+	{
+	case Main: 
+	{
+		MenuUpdate();
+		
+	} break;
+	case Credits: 
+	{
+		CreditsUpdate();
+	} break;
+	/*
+	case Play: 
+	{
+		Update();
+	} break;
+	case Over: 
+	{
+		overUpdate();
+
+	}
+	*/
+	}
 }
 
 void UpdateDrawFrame()

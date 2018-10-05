@@ -1,4 +1,6 @@
 ﻿  Menu.cpp
+c:\users\martín\desktop\desarrollo-1-asteroids\asteroids\src\menu.cpp(12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\martín\desktop\desarrollo-1-asteroids\asteroids\src\menu.cpp(13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Asteroids.vcxproj -> C:\Users\Martín\Desktop\Desarrollo-1-Asteroids\Asteroids\\bin\\Debug\Asteroids.exe
   Asteroids.vcxproj -> C:\Users\Martín\Desktop\Desarrollo-1-Asteroids\Asteroids\\bin\\Debug\Asteroids.pdb (Partial PDB)
   Ya existe el subdirectorio o el archivo C:\Users\Martín\Desktop\Desarrollo-1-Asteroids\Asteroids\bin\Debug\res.
