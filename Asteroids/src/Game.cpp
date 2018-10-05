@@ -484,7 +484,7 @@ namespace Juego
 			Vector2 v2 = { player.position.x - cosf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2), player.position.y - sinf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2) };
 			Vector2 v3 = { player.position.x + cosf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2), player.position.y + sinf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2) };
 			DrawTriangle(v1, v2, v3, MAROON);
-			DrawTexturePro(Space, sourceRec, destRec, origin, player.rotation, WHITE);
+			DrawTexturePro(Space, sourceRec, destRec, origin, player.rotation, BLACK);
 
 			// Draw meteors
 			for (int i = 0; i < MAX_BIG_METEORS; i++)
