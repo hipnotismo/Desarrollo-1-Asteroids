@@ -20,7 +20,7 @@ void CreditsDraw() {
 	DrawText("P O N G, por Martin Concetti", 20, 260, 20, MAROON);
 	DrawText("Creado usando raylib y sfxr", 130, 280, 20, MAROON);
 	DrawText("Consultantes: Baretto, Sergio", 130, 300, 20, MAROON);
-	DrawText("Version 1.0", 130, 320, 20, MAROON);
+	DrawText("Version 0.6", 130, 320, 20, MAROON);
 
 	EndDrawing();
 }
