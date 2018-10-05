@@ -60,6 +60,8 @@ static Meteor smallMeteor[MAX_SMALL_METEORS];
 static int midMeteorsCount;
 static int smallMeteorsCount;
 static int destroyedMeteorsCount;
+Texture2D Space;
+
 
 int core()
 {
@@ -67,6 +69,7 @@ int core()
 	InitWindow(screenWidth, screenHeight, "Asteroids");
 
 	InitGame();
+	 Space = LoadTexture("res/Ship.jpg");
 
 
 	while (!WindowShouldClose())    
@@ -74,6 +77,7 @@ int core()
 		Change();
 		
 	}
+	UnloadTexture(Space);
 	UnloadGame();         
 
 	CloseWindow();       
@@ -195,7 +199,7 @@ void UpdateGame()
 			// Player logic: acceleration
 			if (IsKeyDown(KEY_UP))
 			{
-				if (player.acceleration < 1) player.acceleration += 0.04f;
+				if (player.acceleration < 1) player.acceleration += 0.04f * GetFrameTime();
 			}
 			else
 			{
