@@ -1,8 +1,0 @@
-﻿  Game.cpp
-c:\users\administrador\desktop\desarrollo-1-asteroids\asteroids\src\game.cpp(234): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-c:\users\administrador\desktop\desarrollo-1-asteroids\asteroids\src\game.cpp(235): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-  Asteroids.vcxproj -> C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\\bin\\Debug\Asteroids.exe
-  Asteroids.vcxproj -> C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\\bin\\Debug\Asteroids.pdb (Partial PDB)
-  Ya existe el subdirectorio o el archivo C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\bin\Debug\res.
-  C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\res\Ship.jpg
-  1 archivo(s) copiado(s)
