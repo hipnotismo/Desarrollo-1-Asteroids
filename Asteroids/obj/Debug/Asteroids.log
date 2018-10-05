@@ -1,7 +1,12 @@
 ﻿  Menu.cpp
-c:\users\martín\desktop\desarrollo-1-asteroids\asteroids\src\menu.cpp(12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\martín\desktop\desarrollo-1-asteroids\asteroids\src\menu.cpp(13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Asteroids.vcxproj -> C:\Users\Martín\Desktop\Desarrollo-1-Asteroids\Asteroids\\bin\\Debug\Asteroids.exe
-  Asteroids.vcxproj -> C:\Users\Martín\Desktop\Desarrollo-1-Asteroids\Asteroids\\bin\\Debug\Asteroids.pdb (Partial PDB)
-  Ya existe el subdirectorio o el archivo C:\Users\Martín\Desktop\Desarrollo-1-Asteroids\Asteroids\bin\Debug\res.
-  0 archivo(s) copiado(s)
+c:\users\administrador\desktop\desarrollo-1-asteroids\asteroids\src\menu.cpp(11): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\administrador\desktop\desarrollo-1-asteroids\asteroids\src\menu.cpp(12): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  Game.cpp
+c:\users\administrador\desktop\desarrollo-1-asteroids\asteroids\src\game.cpp(230): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\administrador\desktop\desarrollo-1-asteroids\asteroids\src\game.cpp(231): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+  Generando código...
+  Asteroids.vcxproj -> C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\\bin\\Debug\Asteroids.exe
+  Asteroids.vcxproj -> C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\\bin\\Debug\Asteroids.pdb (Partial PDB)
+  Ya existe el subdirectorio o el archivo C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\bin\Debug\res.
+  C:\Users\Administrador\Desktop\Desarrollo-1-Asteroids\Asteroids\res\UsY9MVb.jpg
+  1 archivo(s) copiado(s)

@@ -4,7 +4,6 @@
 
 Vector2 mousePoint;
 Rectangle rec1;
-
 void MenuUpdate() 
 {
 	MenuDraw();
@@ -16,10 +15,10 @@ void MenuUpdate()
 
 	if (CheckCollisionPointRec(mousePoint, rec1))
 	{
-
+		
 		if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) 
 		{
-			Screens = Credits;
+			Screens = Game;
 		}
 	}
 	

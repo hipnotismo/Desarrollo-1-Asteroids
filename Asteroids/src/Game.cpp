@@ -71,7 +71,7 @@ int core()
 
 	while (!WindowShouldClose())    
 	{
-		MenuUpdate();
+		Change();
 		
 	}
 	UnloadGame();         
@@ -515,17 +515,13 @@ void Change()
 	{
 		CreditsUpdate();
 	} break;
-	/*
-	case Play: 
+	
+	case Game: 
 	{
-		Update();
+		UpdateDrawFrame();
 	} break;
-	case Over: 
-	{
-		overUpdate();
-
-	}
-	*/
+	
+	
 	}
 }
 
