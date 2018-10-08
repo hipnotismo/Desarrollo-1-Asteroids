@@ -38,7 +38,7 @@ namespace Juego
 		ClearBackground(RAYWHITE);
 
 
-		DrawRectangle(screenWidth / 2 - 40, screenHeight / 2 - 40, 80, 80, MAROON);
+		DrawRectangle(rec1.x, rec1.y, rec1.height, rec1.width, MAROON);
 		//DrawText("Presione \"Escape\" para salir", 130, 300, 20, MAROON);
 		//DrawText("r", 130, 300, 20, MAROON);
 

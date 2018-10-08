@@ -13,10 +13,10 @@ namespace Juego
 	GameScreen Screens;
 
 #define PLAYER_BASE_SIZE    20.0f
-#define PLAYER_SPEED        6.0f
+#define PLAYER_SPEED        60000.0f
 #define PLAYER_MAX_SHOOTS   10
 
-#define METEORS_SPEED       2
+#define METEORS_SPEED       40
 #define MAX_BIG_METEORS     4
 #define MAX_MEDIUM_METEORS  8
 #define MAX_SMALL_METEORS   16
@@ -73,14 +73,14 @@ namespace Juego
 	Rectangle sourceRec;
 	Rectangle destRec;
 	Vector2 origin;
-
+	
 	int core()
 	{
 
 		InitWindow(screenWidth, screenHeight, "Asteroids");
 
 		InitGame();
-		Space = LoadTexture("res/Ship.jpg");
+		Space = LoadTexture("res/Ship.png");
 
 
 		while (!WindowShouldClose())
@@ -106,7 +106,7 @@ namespace Juego
 
 		shipHeight = (PLAYER_BASE_SIZE / 2) / tanf(20 * DEG2RAD);
 
-		frameWidth = Space.width / 6;
+		frameWidth = Space.width;
 		frameHeight = Space.height;
 
 		sourceRec = { 0.0f, 0.0f, (float)frameWidth, (float)frameHeight };
@@ -207,32 +207,37 @@ namespace Juego
 			if (!pause)
 			{
 				// Player logic: rotation
-				if (IsKeyDown(KEY_LEFT)) player.rotation -= 5 * GetFrameTime();
-				if (IsKeyDown(KEY_RIGHT)) player.rotation += 5 * GetFrameTime();
+				//if (IsKeyDown(KEY_LEFT)) player.rotation -= 5 * GetFrameTime() ;
+				//if (IsKeyDown(KEY_RIGHT)) player.rotation += 5 * GetFrameTime() ;
+
+				float AngleRad = atan2(GetMousePosition().y - player.position.y, GetMousePosition().x - player.position.x);
+				float AngleDeg = (180 / PI) * AngleRad;
+				player.rotation = AngleDeg+90;
+
 
 				// Player logic: speed
-				player.speed.x = sin(player.rotation*DEG2RAD)*PLAYER_SPEED * GetFrameTime();
-				player.speed.y = cos(player.rotation*DEG2RAD)*PLAYER_SPEED * GetFrameTime();
+				player.speed.x = sin(player.rotation*DEG2RAD)*PLAYER_SPEED * GetFrameTime() ;
+				player.speed.y = cos(player.rotation*DEG2RAD)*PLAYER_SPEED * GetFrameTime() ;
 
 				// Player logic: acceleration
-				if (IsKeyDown(KEY_UP))
+				if (IsMouseButtonDown(MOUSE_RIGHT_BUTTON))
 				{
-					if (player.acceleration < 1) player.acceleration += 0.04f * GetFrameTime();
+					if (player.acceleration < 10) player.acceleration += 1 * GetFrameTime() ;
 				}
 				else
 				{
-					if (player.acceleration > 0) player.acceleration -= 0.02f;
-					else if (player.acceleration < 0) player.acceleration = 0;
+					if (player.acceleration > 0) player.acceleration -= 0.5f * GetFrameTime() ;
+					else if (player.acceleration < 0) player.acceleration = 0 * GetFrameTime() ;
 				}
-				if (IsKeyDown(KEY_DOWN))
-				{
-					if (player.acceleration > 0) player.acceleration -= 0.04f;
-					else if (player.acceleration < 0) player.acceleration = 0;
-				}
+				//if (IsKeyDown(KEY_DOWN))
+				//{
+				//	if (player.acceleration > 0) player.acceleration -= 0.04f * GetFrameTime() ;
+				//	else if (player.acceleration < 0) player.acceleration = 0 * GetFrameTime() ;
+				//}
 
 				// Player logic: movement
-				player.position.x += (player.speed.x*player.acceleration);
-				player.position.y -= (player.speed.y*player.acceleration);
+				player.position.x += (player.speed.x*player.acceleration) * GetFrameTime() ;
+				player.position.y -= (player.speed.y*player.acceleration) * GetFrameTime() ;
 
 				// Collision logic: player vs walls
 				if (player.position.x > screenWidth + shipHeight) player.position.x = -(shipHeight);
@@ -241,16 +246,16 @@ namespace Juego
 				else if (player.position.y < -(shipHeight)) player.position.y = screenHeight + shipHeight;
 
 				// Player shoot logic
-				if (IsKeyPressed(KEY_SPACE))
+				if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 				{
 					for (int i = 0; i < PLAYER_MAX_SHOOTS; i++)
 					{
 						if (!shoot[i].active)
 						{
-							shoot[i].position = { player.position.x + sin(player.rotation*DEG2RAD)*(shipHeight), player.position.y - cos(player.rotation*DEG2RAD)*(shipHeight) };
+							shoot[i].position = { player.position.x + sin(player.rotation*DEG2RAD)*(shipHeight), player.position.y - cos(player.rotation*DEG2RAD)*(shipHeight) } ;
 							shoot[i].active = true;
-							shoot[i].speed.x = 1.5*sin(player.rotation*DEG2RAD)*PLAYER_SPEED;
-							shoot[i].speed.y = 1.5*cos(player.rotation*DEG2RAD)*PLAYER_SPEED;
+							shoot[i].speed.x = (1.5*sin(player.rotation*DEG2RAD)*PLAYER_SPEED + player.speed.x) * GetFrameTime();
+							shoot[i].speed.y = (1.5*cos(player.rotation*DEG2RAD)*PLAYER_SPEED + player.speed.y) * GetFrameTime();
 							shoot[i].rotation = player.rotation;
 							break;
 						}
@@ -269,8 +274,8 @@ namespace Juego
 					if (shoot[i].active)
 					{
 						// Movement
-						shoot[i].position.x += shoot[i].speed.x * GetFrameTime();
-						shoot[i].position.y -= shoot[i].speed.y * GetFrameTime();
+						shoot[i].position.x += shoot[i].speed.x * GetFrameTime() ;
+						shoot[i].position.y -= shoot[i].speed.y * GetFrameTime() ;
 
 						// Collision logic: shoot vs walls
 						if (shoot[i].position.x > screenWidth + shoot[i].radius)
@@ -295,7 +300,7 @@ namespace Juego
 						}
 
 						// Life of shoot
-						if (shoot[i].lifeSpawn >= 60)
+						if (shoot[i].lifeSpawn >= 12000)
 						{
 							shoot[i].position = { 0, 0 };
 							shoot[i].speed = { 0, 0 };
@@ -329,8 +334,8 @@ namespace Juego
 					if (bigMeteor[i].active)
 					{
 						// Movement
-						bigMeteor[i].position.x += bigMeteor[i].speed.x * GetFrameTime();
-						bigMeteor[i].position.y += bigMeteor[i].speed.y * GetFrameTime();
+						bigMeteor[i].position.x += bigMeteor[i].speed.x * GetFrameTime() ;
+						bigMeteor[i].position.y += bigMeteor[i].speed.y * GetFrameTime() ;
 
 						// Collision logic: meteor vs wall
 						if (bigMeteor[i].position.x > screenWidth + bigMeteor[i].radius) bigMeteor[i].position.x = -(bigMeteor[i].radius);
@@ -346,8 +351,8 @@ namespace Juego
 					if (mediumMeteor[i].active)
 					{
 						// Movement
-						mediumMeteor[i].position.x += mediumMeteor[i].speed.x * GetFrameTime();
-						mediumMeteor[i].position.y += mediumMeteor[i].speed.y * GetFrameTime();
+						mediumMeteor[i].position.x += mediumMeteor[i].speed.x * GetFrameTime() ;
+						mediumMeteor[i].position.y += mediumMeteor[i].speed.y * GetFrameTime() ;
 
 						// Collision logic: meteor vs wall
 						if (mediumMeteor[i].position.x > screenWidth + mediumMeteor[i].radius) mediumMeteor[i].position.x = -(mediumMeteor[i].radius);
@@ -363,8 +368,8 @@ namespace Juego
 					if (smallMeteor[i].active)
 					{
 						// Movement
-						smallMeteor[i].position.x += smallMeteor[i].speed.x * GetFrameTime();
-						smallMeteor[i].position.y += smallMeteor[i].speed.y * GetFrameTime();
+						smallMeteor[i].position.x += smallMeteor[i].speed.x * GetFrameTime() ;
+						smallMeteor[i].position.y += smallMeteor[i].speed.y * GetFrameTime() ;
 
 						// Collision logic: meteor vs wall
 						if (smallMeteor[i].position.x > screenWidth + smallMeteor[i].radius) smallMeteor[i].position.x = -(smallMeteor[i].radius);
@@ -393,12 +398,12 @@ namespace Juego
 									if (midMeteorsCount % 2 == 0)
 									{
 										mediumMeteor[midMeteorsCount].position = { bigMeteor[a].position.x, bigMeteor[a].position.y };
-										mediumMeteor[midMeteorsCount].speed = { cos(shoot[i].rotation*DEG2RAD)*METEORS_SPEED*-1, sin(shoot[i].rotation*DEG2RAD)*METEORS_SPEED*-1 };
+										mediumMeteor[midMeteorsCount].speed = { cos(shoot[i].rotation*DEG2RAD)*METEORS_SPEED*-1, sin(shoot[i].rotation*DEG2RAD)*METEORS_SPEED*-1};
 									}
 									else
 									{
 										mediumMeteor[midMeteorsCount].position = { bigMeteor[a].position.x, bigMeteor[a].position.y };
-										mediumMeteor[midMeteorsCount].speed = { cos(shoot[i].rotation*DEG2RAD)*METEORS_SPEED, sin(shoot[i].rotation*DEG2RAD)*METEORS_SPEED };
+										mediumMeteor[midMeteorsCount].speed = { cos(shoot[i].rotation*DEG2RAD)*METEORS_SPEED, sin(shoot[i].rotation*DEG2RAD)*METEORS_SPEED};
 									}
 
 									mediumMeteor[midMeteorsCount].active = true;
@@ -424,12 +429,12 @@ namespace Juego
 									if (smallMeteorsCount % 2 == 0)
 									{
 										smallMeteor[smallMeteorsCount].position = { mediumMeteor[b].position.x, mediumMeteor[b].position.y };
-										smallMeteor[smallMeteorsCount].speed = { cos(shoot[i].rotation*DEG2RAD)*METEORS_SPEED*-1, sin(shoot[i].rotation*DEG2RAD)*METEORS_SPEED*-1 };
+										smallMeteor[smallMeteorsCount].speed = { cos(shoot[i].rotation*DEG2RAD)*METEORS_SPEED*-1, sin(shoot[i].rotation*DEG2RAD)*METEORS_SPEED*-1};
 									}
 									else
 									{
 										smallMeteor[smallMeteorsCount].position = { mediumMeteor[b].position.x, mediumMeteor[b].position.y };
-										smallMeteor[smallMeteorsCount].speed = { cos(shoot[i].rotation*DEG2RAD)*METEORS_SPEED, sin(shoot[i].rotation*DEG2RAD)*METEORS_SPEED };
+										smallMeteor[smallMeteorsCount].speed = { cos(shoot[i].rotation*DEG2RAD)*METEORS_SPEED, sin(shoot[i].rotation*DEG2RAD)*METEORS_SPEED};
 									}
 
 									smallMeteor[smallMeteorsCount].active = true;
@@ -484,7 +489,7 @@ namespace Juego
 			Vector2 v2 = { player.position.x - cosf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2), player.position.y - sinf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2) };
 			Vector2 v3 = { player.position.x + cosf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2), player.position.y + sinf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2) };
 			DrawTriangle(v1, v2, v3, MAROON);
-			DrawTexturePro(Space, sourceRec, destRec, origin, player.rotation, BLACK);
+			//DrawTexturePro(Space, sourceRec, destRec, origin, player.rotation, BLACK);
 
 			// Draw meteors
 			for (int i = 0; i < MAX_BIG_METEORS; i++)
