@@ -13,9 +13,9 @@ namespace Juego
 	{
 		MenuDraw();
 		mousePoint = GetMousePosition();
-		rec1.x = screenWidth / 2 - 40;
-		rec1.y = screenHeight / 2 - 40;
-		rec1.height = 40;
+		rec1.x = screenWidth / 2 - 50;
+		rec1.y = screenHeight / 2 + 30;
+		rec1.height = 90;
 		rec1.width = 80;
 
 		if (CheckCollisionPointRec(mousePoint, rec1))
