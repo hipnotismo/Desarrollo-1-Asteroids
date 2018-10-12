@@ -1,8 +1,7 @@
-#include "Credits.h"
-
 #include "include/raylib.h"
 
-#include "Game.h"
+#include "credits.h"
+#include "game.h"
 
 namespace Juego
 {

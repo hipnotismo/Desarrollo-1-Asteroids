@@ -1,11 +1,10 @@
-#include "Game.h"
-
-#include <cmath>
-
 #include "include/raylib.h"
 
-#include "Menu.h"
-#include "Credits.h"
+#include "game.h"
+#include "menu.h"
+#include "credits.h"
+
+#include <cmath>
 
 namespace Juego 
 {

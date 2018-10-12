@@ -1,6 +1,6 @@
 #include "include\raylib.h"
 
-#include "Game.h"
+#include "game.h"
 
 using namespace Juego;
 

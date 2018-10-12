@@ -1,5 +1,5 @@
-#ifndef Credits_H
-#define Credits_H
+#ifndef credits_H
+#define credits_H
 
 namespace Juego
 {
@@ -9,4 +9,4 @@ namespace Juego
 
 }
 
-#endif // !Credits_H
+#endif // !credits_H

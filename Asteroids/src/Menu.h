@@ -1,6 +1,6 @@
-#ifndef Menu_H
-#define Menu_H
-#include "Game.h"
+#ifndef menu_H
+#define menu_H
+#include "game.h"
 
 namespace Juego 
 {
@@ -11,4 +11,4 @@ namespace Juego
 	void MenuUpdate();
 	void  MenuDraw();
 }
-#endif // !Menu_H
+#endif // !menu_H

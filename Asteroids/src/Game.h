@@ -1,5 +1,5 @@
-#ifndef Game_H
-#define Game_H
+#ifndef game_H
+#define game_H
 
 namespace Juego 
 {
@@ -17,4 +17,4 @@ namespace Juego
 
 }
 
-#endif // !Game_H
+#endif // !game_H
