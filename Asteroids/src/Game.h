@@ -4,7 +4,7 @@
 namespace Juego 
 {
 
-	enum GameScreen { Main = 0, Game, Over, Credits };
+	enum GameScreen { menu = 0, game, over, credits };
 	extern GameScreen Screens;
 
 	int core();

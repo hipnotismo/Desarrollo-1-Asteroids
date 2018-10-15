@@ -28,7 +28,7 @@ namespace Juego
 
 			if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 			{
-				Screens = Game;
+				Screens = game;
 			}
 		}
 		if (CheckCollisionPointRec(mousePoint, rec2))
@@ -36,7 +36,7 @@ namespace Juego
 
 			if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 			{
-				Screens = Credits;
+				Screens = credits;
 			}
 		}
 

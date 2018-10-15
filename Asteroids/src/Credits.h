@@ -3,6 +3,8 @@
 
 namespace Juego
 {
+	extern int screenHeight;
+	extern int screenWidth;
 
 	void CreditsUpdate();
 	void CreditsDraw();

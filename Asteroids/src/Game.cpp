@@ -533,17 +533,17 @@ namespace Juego
 	{
 		switch (Screens)
 		{
-		case Main:
+		case menu:
 		{
 			MenuUpdate();
 
 		} break;
-		case Credits:
+		case credits:
 		{
 			CreditsUpdate();
 		} break;
 
-		case Game:
+		case game:
 		{
 			UpdateDrawFrame();
 		} break;
