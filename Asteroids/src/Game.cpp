@@ -3,6 +3,7 @@
 #include "game.h"
 #include "menu.h"
 #include "credits.h"
+#include "controls.h"
 
 #include <cmath>
 
@@ -547,7 +548,10 @@ namespace Juego
 		{
 			UpdateDrawFrame();
 		} break;
-
+		case controls:
+		{
+			controlsUpdate();
+		} break;
 
 		}
 	}

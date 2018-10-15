@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\controls.cpp" />
     <ClCompile Include="..\src\credits.cpp" />
     <ClCompile Include="..\src\game.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\menu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\controls.h" />
     <ClInclude Include="..\src\credits.h" />
     <ClInclude Include="..\src\game.h" />
     <ClInclude Include="..\src\menu.h" />
