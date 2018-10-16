@@ -47,7 +47,6 @@ namespace Juego
 		bool active;
 		Color color;
 	};
-
 	int screenWidth = 800;
 	int screenHeight = 450;
 
@@ -69,28 +68,35 @@ namespace Juego
 	static int frameWidth;
 	static int frameHeight;
 
-	Texture2D Space;
+	Texture2D space;
+	Sound shot;
 	Rectangle sourceRec;
+	Rectangle volver;
 	Rectangle destRec;
 	Vector2 origin;
+	Vector2 point;
+
 	
 	int core()
 	{
 
 		InitWindow(screenWidth, screenHeight, "Asteroids");
-
+		
+		InitAudioDevice();
 		InitGame();
-		Space = LoadTexture("res/Ship.png");
-
+		space = LoadTexture("res/Ship.png");
+		shot = LoadSound("re/Shot.wav");
 
 		while (!WindowShouldClose())
 		{
 			Change();
 
 		}
-		UnloadTexture(Space);
+		UnloadTexture(space);
 		UnloadGame();
+		UnloadSound(shot);
 
+		CloseAudioDevice();
 		CloseWindow();
 
 		return 0;
@@ -106,8 +112,9 @@ namespace Juego
 
 		shipHeight = (PLAYER_BASE_SIZE / 2) / tanf(20 * DEG2RAD);
 
-		frameWidth = Space.width;
-		frameHeight = Space.height;
+		frameWidth = space.width;
+		frameHeight = space.height;
+		point = GetMousePosition();
 
 		sourceRec = { 0.0f, 0.0f, (float)frameWidth, (float)frameHeight };
 		destRec = { (float)screenWidth / 2, (float)screenHeight / 2, (float)frameWidth * 2, (float)frameHeight * 2 };
@@ -209,6 +216,20 @@ namespace Juego
 				// Player logic: rotation
 				//if (IsKeyDown(KEY_LEFT)) player.rotation -= 5 * GetFrameTime() ;
 				//if (IsKeyDown(KEY_RIGHT)) player.rotation += 5 * GetFrameTime() ;
+
+				volver.x = 25;
+				volver.y = 25;
+				volver.height = 50;
+				volver.width = 100;
+
+				if (CheckCollisionPointRec(point, volver))
+				{
+
+					if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+					{
+						Screens = menu;
+					}
+				}
 
 				float AngleRad = atan2(GetMousePosition().y - player.position.y, GetMousePosition().x - player.position.x);
 				float AngleDeg = (180 / PI) * AngleRad;
@@ -489,7 +510,7 @@ namespace Juego
 			Vector2 v2 = { player.position.x - cosf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2), player.position.y - sinf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2) };
 			Vector2 v3 = { player.position.x + cosf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2), player.position.y + sinf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2) };
 			DrawTriangle(v1, v2, v3, MAROON);
-			//DrawTexturePro(Space, sourceRec, destRec, origin, player.rotation, BLACK);
+			DrawTexturePro(space, sourceRec, destRec, origin, player.rotation, BLACK);
 
 			// Draw meteors
 			for (int i = 0; i < MAX_BIG_METEORS; i++)
@@ -519,6 +540,11 @@ namespace Juego
 			if (victory) DrawText("VICTORY", screenWidth / 2 - MeasureText("VICTORY", 20) / 2, screenHeight / 2, 20, LIGHTGRAY);
 
 			if (pause) DrawText("GAME PAUSED", screenWidth / 2 - MeasureText("GAME PAUSED", 40) / 2, screenHeight / 2 - 40, 40, GRAY);
+
+			DrawRectangle(volver.x, volver.y, volver.width, volver.height, BLACK);
+			DrawText("atras", volver.x + 18, volver.y + 10, 20, WHITE);
+
+
 		}
 		else DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
 

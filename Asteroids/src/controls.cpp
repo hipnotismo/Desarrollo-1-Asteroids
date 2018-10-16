@@ -42,6 +42,8 @@ namespace Juego
 		DrawText("atras", rect1.x + 18, rect1.y + 10, 20, WHITE);
 		DrawText("Click izquierdo para disparar", 20, 200, 20, BLACK);
 		DrawText("Click derecho para moverse", 20, 220, 20, BLACK);
+		DrawText("P para pausar", 20, 240, 20, BLACK);
+		DrawText("Con el bboton Volver se va al menu principal paro se acabaa el juego", 20, 240, 20, BLACK);
 
 		
 
