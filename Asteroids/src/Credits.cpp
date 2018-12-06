@@ -1,13 +1,14 @@
+#include "credits.h"
+
 #include "include/raylib.h"
 
-#include "credits.h"
 #include "game.h"
 
-Vector2 mousePoint;
-Rectangle rec1;
 
-namespace Juego
+namespace Game
 {
+	static Vector2 mousePoint;
+	static Rectangle rec1;
 
 	void CreditsUpdate()
 	{

@@ -1,27 +1,21 @@
+#include "game.h"
+
+#include <cmath>
+
 #include "include/raylib.h"
 
-#include "game.h"
 #include "menu.h"
 #include "credits.h"
 #include "controls.h"
 
-#include <cmath>
 
-namespace Juego 
+namespace Game 
 {
 
 	GameScreen Screens;
 
-#define PLAYER_BASE_SIZE    20.0f
-#define PLAYER_SPEED        60000.0f
-#define PLAYER_MAX_SHOOTS   10
-
-#define METEORS_SPEED       40
-#define MAX_BIG_METEORS     4
-#define MAX_MEDIUM_METEORS  8
-#define MAX_SMALL_METEORS   16
-
-	struct Player {
+	struct Player 
+	{
 		Vector2 position;
 		Vector2 speed;
 		float acceleration;
@@ -30,7 +24,8 @@ namespace Juego
 		Color color;
 	};
 
-	struct Shoot {
+	struct Shoot 
+	{
 		Vector2 position;
 		Vector2 speed;
 		float radius;
@@ -40,21 +35,39 @@ namespace Juego
 		Color color;
 	};
 
-	struct Meteor {
+	struct Meteor 
+	{
 		Vector2 position;
 		Vector2 speed;
 		float radius;
 		bool active;
 		Color color;
 	};
+
 	int screenWidth = 800;
 	int screenHeight = 450;
 
 	static bool gameOver;
 	static bool pause;
+	static bool Music_pause;
 	static bool victory;
 
 	static float shipHeight;
+	static float PLAYER_BASE_SIZE = 20.0f;
+	static float  PLAYER_SPEED = 60000.0f;
+
+	
+
+	static int midMeteorsCount;
+	static int smallMeteorsCount;
+	static int destroyedMeteorsCount;
+	static int frameWidth;
+	static int frameHeight;
+	static const int PLAYER_MAX_SHOOTS = 10;
+	static const int METEORS_SPEED  = 40;
+	static const int MAX_BIG_METEORS = 4;
+	static const int  MAX_MEDIUM_METEORS = 8;
+	static const int MAX_SMALL_METEORS = 16;
 
 	static Player player;
 	static Shoot shoot[PLAYER_MAX_SHOOTS];
@@ -62,19 +75,14 @@ namespace Juego
 	static Meteor mediumMeteor[MAX_MEDIUM_METEORS];
 	static Meteor smallMeteor[MAX_SMALL_METEORS];
 
-	static int midMeteorsCount;
-	static int smallMeteorsCount;
-	static int destroyedMeteorsCount;
-	static int frameWidth;
-	static int frameHeight;
-
-	Texture2D space;
-	Sound shot;
-	Rectangle sourceRec;
-	Rectangle volver;
-	Rectangle destRec;
-	Vector2 origin;
-	Vector2 point;
+	static Sound shot;
+	static Music music;
+	static Rectangle sourceRec;
+	static Rectangle volver;
+	static Rectangle music_rec;
+	static Rectangle destRec;
+	static Vector2 origin;
+	static Vector2 point;
 
 	
 	int core()
@@ -82,19 +90,16 @@ namespace Juego
 
 		InitWindow(screenWidth, screenHeight, "Asteroids");
 		
-		InitAudioDevice();
 		InitGame();
-		space = LoadTexture("res/Ship.png");
-		shot = LoadSound("re/Shot.wav");
 
 		while (!WindowShouldClose())
 		{
 			Change();
 
 		}
-		UnloadTexture(space);
-		UnloadGame();
 		UnloadSound(shot);
+		UnloadMusicStream(music);
+		UnloadGame();
 
 		CloseAudioDevice();
 		CloseWindow();
@@ -104,16 +109,26 @@ namespace Juego
 
 	void InitGame()
 	{
+
+		//sound
+		InitAudioDevice();
+		shot = LoadSound("res/Jump.wav");
+		music = LoadMusicStream("res/background.ogg");
+		PlayMusicStream(music);
+
+
 		int posx, posy;
 		int velx, vely;
 		bool correctRange = false;
 		victory = false;
 		pause = false;
+		Music_pause = false;
+
+		//static Shoot shoot[PLAYER_MAX_SHOOTS];
+
 
 		shipHeight = (PLAYER_BASE_SIZE / 2) / tanf(20 * DEG2RAD);
 
-		frameWidth = space.width;
-		frameHeight = space.height;
 		point = GetMousePosition();
 
 		sourceRec = { 0.0f, 0.0f, (float)frameWidth, (float)frameHeight };
@@ -213,23 +228,12 @@ namespace Juego
 
 			if (!pause)
 			{
-				// Player logic: rotation
-				//if (IsKeyDown(KEY_LEFT)) player.rotation -= 5 * GetFrameTime() ;
-				//if (IsKeyDown(KEY_RIGHT)) player.rotation += 5 * GetFrameTime() ;
+				UpdateMusicStream(music);
 
-				volver.x = 25;
-				volver.y = 25;
-				volver.height = 50;
-				volver.width = 100;
-
-				if (CheckCollisionPointRec(point, volver))
-				{
-
-					if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-					{
-						Screens = menu;
-					}
-				}
+				music_rec.x = 50;
+				music_rec.y = 50;
+				music_rec.height = 50;
+				music_rec.width = 190;
 
 				float AngleRad = atan2(GetMousePosition().y - player.position.y, GetMousePosition().x - player.position.x);
 				float AngleDeg = (180 / PI) * AngleRad;
@@ -250,11 +254,7 @@ namespace Juego
 					if (player.acceleration > 0) player.acceleration -= 0.5f * GetFrameTime() ;
 					else if (player.acceleration < 0) player.acceleration = 0 * GetFrameTime() ;
 				}
-				//if (IsKeyDown(KEY_DOWN))
-				//{
-				//	if (player.acceleration > 0) player.acceleration -= 0.04f * GetFrameTime() ;
-				//	else if (player.acceleration < 0) player.acceleration = 0 * GetFrameTime() ;
-				//}
+				
 
 				// Player logic: movement
 				player.position.x += (player.speed.x*player.acceleration) * GetFrameTime() ;
@@ -279,6 +279,8 @@ namespace Juego
 							shoot[i].speed.y = (1.5*cos(player.rotation*DEG2RAD)*PLAYER_SPEED + player.speed.y) * GetFrameTime();
 							shoot[i].rotation = player.rotation;
 							break;
+							PlaySound(shot);
+
 						}
 					}
 				}
@@ -484,6 +486,23 @@ namespace Juego
 				}
 			}
 
+			else
+				//Menu de pausa
+			{				
+				if (IsKeyPressed(KEY_M))
+				{
+					Music_pause = !Music_pause;
+
+					if (Music_pause) PauseMusicStream(music);
+					else ResumeMusicStream(music);					
+				}
+			}
+			if (IsKeyPressed(KEY_B))
+			{
+				Screens = menu;
+
+			}
+
 			if (destroyedMeteorsCount == MAX_BIG_METEORS + MAX_MEDIUM_METEORS + MAX_SMALL_METEORS) victory = true;
 		}
 		else
@@ -510,7 +529,6 @@ namespace Juego
 			Vector2 v2 = { player.position.x - cosf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2), player.position.y - sinf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2) };
 			Vector2 v3 = { player.position.x + cosf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2), player.position.y + sinf(player.rotation*DEG2RAD)*(PLAYER_BASE_SIZE / 2) };
 			DrawTriangle(v1, v2, v3, MAROON);
-			DrawTexturePro(space, sourceRec, destRec, origin, player.rotation, BLACK);
 
 			// Draw meteors
 			for (int i = 0; i < MAX_BIG_METEORS; i++)
@@ -540,9 +558,9 @@ namespace Juego
 			if (victory) DrawText("VICTORY", screenWidth / 2 - MeasureText("VICTORY", 20) / 2, screenHeight / 2, 20, LIGHTGRAY);
 
 			if (pause) DrawText("GAME PAUSED", screenWidth / 2 - MeasureText("GAME PAUSED", 40) / 2, screenHeight / 2 - 40, 40, GRAY);
-
-			DrawRectangle(volver.x, volver.y, volver.width, volver.height, BLACK);
-			DrawText("atras", volver.x + 18, volver.y + 10, 20, WHITE);
+			if (pause) DrawText("M durante pausa para desactivar la musica", 20, 260, 20, BLACK);
+			if (pause) DrawText("B para volver al menu", 20, 280, 20, BLACK);
+		
 
 
 		}

@@ -1,14 +1,15 @@
+#include "controls.h"
+
 #include "include/raylib.h"
 
-#include "controls.h"
 #include "game.h"
 
 
 
-namespace Juego
+namespace Game
 {
-	Vector2 mouse;
-	Rectangle rect1;
+	static Vector2 mouse;
+	static Rectangle rect1;
 
 	void controlsUpdate()
 	{
@@ -43,7 +44,8 @@ namespace Juego
 		DrawText("Click izquierdo para disparar", 20, 200, 20, BLACK);
 		DrawText("Click derecho para moverse", 20, 220, 20, BLACK);
 		DrawText("P para pausar", 20, 240, 20, BLACK);
-		DrawText("Con el bboton Volver se va al menu principal paro se acabaa el juego", 20, 240, 20, BLACK);
+		DrawText("M durante pausa para desactivar la musica", 20, 260, 20, BLACK);
+		DrawText("B para vlver al menu", 20, 280, 20, BLACK);
 
 		
 

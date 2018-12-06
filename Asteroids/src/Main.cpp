@@ -2,7 +2,7 @@
 
 #include "game.h"
 
-using namespace Juego;
+using namespace Game;
 
 int main()
 {

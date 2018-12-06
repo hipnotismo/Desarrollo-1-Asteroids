@@ -1,15 +1,16 @@
+#include "menu.h"
+
 #include "include/raylib.h"
 
-#include "menu.h"
 #include "game.h"
 
-namespace Juego 
+namespace Game
 {
 
-	Vector2 mousePoint;
-	Rectangle rec1;
-	Rectangle rec2;
-	Rectangle rec3;
+	static Vector2 mousePoint;
+	static Rectangle rec1;
+	static Rectangle rec2;
+	static Rectangle rec3;
 
 	void MenuUpdate()
 	{

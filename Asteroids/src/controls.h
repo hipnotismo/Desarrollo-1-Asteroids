@@ -1,7 +1,7 @@
 #ifndef controls_H
 #define controls_H
 
-namespace Juego
+namespace Game
 {
 	extern int screenHeight;
 	extern int screenWidth;

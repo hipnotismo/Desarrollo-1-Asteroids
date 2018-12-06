@@ -1,7 +1,7 @@
 #ifndef game_H
 #define game_H
 
-namespace Juego 
+namespace Game 
 {
 
 	enum GameScreen { menu = 0, game, over, credits, controls };

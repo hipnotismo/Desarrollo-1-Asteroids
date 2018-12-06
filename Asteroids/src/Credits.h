@@ -1,7 +1,7 @@
 #ifndef credits_H
 #define credits_H
 
-namespace Juego
+namespace Game
 {
 	extern int screenHeight;
 	extern int screenWidth;

@@ -2,7 +2,7 @@
 #define menu_H
 #include "game.h"
 
-namespace Juego 
+namespace Game
 {
 
 	extern int screenHeight;
