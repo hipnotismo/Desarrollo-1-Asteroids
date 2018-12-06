@@ -10,3 +10,7 @@ Controles:
 Click izquierdo para disparar
 Click derecho para moverse
 P para pausar
+
+Contacto:
+Mail: Martinconcetti97@gmail.com
+Discord: Dread#0068
